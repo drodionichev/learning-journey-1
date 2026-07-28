@@ -1,0 +1,10 @@
+[
+  {
+    "test": "login",
+    "status": "pass"
+  },
+  {
+    "test": "logout",
+    "status": "fail"
+  }
+]
