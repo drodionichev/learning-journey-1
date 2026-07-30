@@ -139,3 +139,53 @@ Become an SDET in 18-24 months
 
 **Files created:** day_8_conditions.py
 **Commits:** 1
+
+## Day 9 — Files & JSON
+
+**What I learned:**
+
+**Files (with open):**
+- with open(...) as f: — auto-closes the file even on error (why it's the standard)
+- Write mode: open("file", "w"), f.write() — "w" overwrites, "a" appends
+- Three ways to read:
+  - f.read() — whole file as one string
+  - f.readlines() — list of lines
+  - for line in f: — line by line (most common), + .strip()
+
+**JSON:**
+- import json — built-in module, no install needed
+- json.dump(data, f, indent=2) — write dict to JSON file
+- json.load(f) — read JSON file back into a dict
+- dump/load work with FILES; dumps/loads (with s) work with STRINGS
+- Connection to API: response comes as string → json.loads(response) → dict
+
+**Practice tasks:**
+- count_lines(filename) — count lines in a file
+- save_results(filename, results) — save list of test results to JSON
+- count_words(text) — word frequency counter using .get(word, 0) + 1 (built solo)
+
+**Files created:** day_9_files.py, stack_learning.py, test.txt, data.json, results.json
+**Commits:** 1
+
+**Note:** count_passed() left unfinished — to be completed later.
+
+## Day 10 — Error Handling (try/except)
+
+**What I learned:**
+- try/except — catch errors so program doesn't crash
+- Error types: ValueError, KeyError, IndexError, TypeError, ZeroDivisionError, FileNotFoundError
+- except ... as e — capture and log the error object
+- Multiple except blocks — different reaction per error
+- except (A, B) — one reaction for several errors (DRY)
+- else (runs on success) / finally (runs always, for cleanup)
+- Key lesson: catch the SPECIFIC error that actually occurs (int("abc")→ValueError, lst["a"]→TypeError, lst[99]→IndexError)
+- Reminder: a function must RETURN its result, not just print it
+
+**Practice tasks:**
+- parse_user — protected int() (ValueError + IndexError)
+- safe_divide — ZeroDivisionError, return None on failure
+- get_element — IndexError vs TypeError, return messages
+- read_config — FileNotFoundError + file reading (links to Day 9)
+
+**Files created:** day_10_errors.py (adjust)
+**Commits:** 1
