@@ -189,3 +189,48 @@ Become an SDET in 18-24 months
 
 **Files created:** day_10_errors.py (adjust)
 **Commits:** 1
+
+## Day 11 — 8 August 2026 — Modules & Imports
+
+**What I learned:**
+
+**Import styles:**
+- import math — take whole module, call via math.sqrt()
+- from math import sqrt — take one name, call directly sqrt()
+- import math as m — rename on import
+- from module import * — DON'T use, pollutes namespace
+
+**Own modules:**
+- A module = just a .py file
+- import my_tools — pulls in your own file from the same folder
+- Module name = filename without .py
+- Import runs the whole file top to bottom
+
+**if __name__ == "__main__":**
+- Every module has a hidden __name__ variable
+- Run file directly → __name__ == "__main__"
+- Import file elsewhere → __name__ == "module_name"
+- Code under this block runs ONLY on direct run, not on import
+- Used for entry point / self-tests that shouldn't fire when imported
+
+**Packages:**
+- Package = a folder with modules
+- __init__.py marks the folder as a package (can be empty)
+- Import with dots: from utils.string_tools import shout
+
+**Stdlib modules for SDET:**
+- datetime — datetime.now(), .year, .hour (timestamps, test timing)
+- json — dumps (dict→string), loads (string→dict); dump/load = files
+- os — os.getcwd(), os.path.exists("file") (paths, env vars)
+
+**Practice:**
+- Played with math / random (randint includes both bounds!)
+- Built my_tools.py + imported it two ways
+- Saw __name__ behave differently on direct run vs import
+- Created first package: utils/ with __init__.py + string_tools.py
+- Used datetime / json / os hands-on
+
+**Files created:** day_11.py, my_tools.py, utils/ (__init__.py, string_tools.py)
+**Commits:** 1
+
+**Note:** progress.md dropped — journal.md is now the single progress tracker.
