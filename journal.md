@@ -234,3 +234,39 @@ Become an SDET in 18-24 months
 **Commits:** 1
 
 **Note:** progress.md dropped — journal.md is now the single progress tracker.
+
+## Day 12 — 11 August 2026 — Functions Deep: Closures
+
+**What I learned:**
+
+**Functions are objects (first-class):**
+- A function is a value — store in a variable (no parens!), pass, return it
+- greet = function object; greet() = calling it
+- Pass a function into another: apply(func, value) → func(value)
+
+**Scope — LEGB rule:**
+- Local → Enclosing → Global → Built-in, searched in that order, stops at first match
+- Reading an outer variable: fine
+- Assigning to it inside a function → Python treats it as LOCAL → UnboundLocalError
+- global keyword fixes it BUT is bad practice — prefer take-argument / return-value
+
+**Closures:**
+- Inner function returned from outer, "remembers" outer's variables
+- 3 conditions: nested function + uses enclosing var + outer returns inner (no parens)
+- make_multiplier(2) → factory bakes factor=2 into the returned function
+- Arg at creation → goes to outer; arg at call → goes to inner
+- Foundation for decorators
+
+**Functional tools:**
+- sorted(collection, key=len) — key is a function, called per element
+- map(func, coll) / filter(func, coll) — return lazy objects, wrap in list()
+- lambda x: x * 2 — anonymous one-line function, auto-returns
+
+**Practice:**
+- double / apply_twice — passing functions around
+- test_scope / broken — caught UnboundLocalError live
+- make_adder(n) — built a working closure factory
+- sorted by len, map→squares, filter→>2 with lambdas
+
+**Files created:** day_12_functions.py
+**Commits:** 1
