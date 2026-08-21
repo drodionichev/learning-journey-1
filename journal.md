@@ -308,3 +308,7 @@ Become an SDET in 18-24 months
 **Commits:** 1
 
 **🎉 Milestone: Python Core complete (Day 1-13). Next: pytest.**
+
+## Day 14 — Review & Consolidation
+- Mixed practice: password check (any/isdigit), word counter (.get pattern), count long words, average_length, safe_divide (try/except)
+- Key lesson: rest matters — a wall in the evening was solvable after a break
