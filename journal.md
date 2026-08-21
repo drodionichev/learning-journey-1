@@ -312,3 +312,19 @@ Become an SDET in 18-24 months
 ## Day 14 — Review & Consolidation
 - Mixed practice: password check (any/isdigit), word counter (.get pattern), count long words, average_length, safe_divide (try/except)
 - Key lesson: rest matters — a wall in the evening was solvable after a break
+
+## Day 15 — OOP Basics: Classes & Objects
+
+**What I learned:**
+- class = blueprint, object = instance made from it
+- __init__(self, ...) — constructor, runs on creation, sets initial data
+- self = the object itself ("me"), always first param, auto-passed on call
+- Fields: self.name = name; methods: def method(self): ...
+- Objects keep their state between method calls (Counter: count persists)
+- Default args in __init__ (balance=0), if-checks inside methods
+- Guard clause / early return: check BEFORE acting (withdraw: check funds before subtracting)
+- sum(list) / len(list) — don't rebuild with a loop when built-ins exist
+- Lesson: don't over-engineer — simplest solution that works wins
+
+**Classes built:** Cat, Counter, BankAccount, Student
+**Commits:** 1
