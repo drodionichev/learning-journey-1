@@ -328,3 +328,16 @@ Become an SDET in 18-24 months
 
 **Classes built:** Cat, Counter, BankAccount, Student
 **Commits:** 1
+
+## Day 16 — OOP Inheritance
+
+**What I learned:**
+- class Child(Parent) — child inherits all fields & methods from parent for free
+- Child can add its own methods on top (Car.honk)
+- Writing __init__ in child REPLACES parent's __init__ entirely
+- super().__init__(args) — delegate to parent's init, then add child's own fields (no copy-paste)
+- Method override: same method name in child replaces parent's version
+- Python looks for a method on the object first, then walks up to parents
+- Inheritance chain: ElectricCar → Car → Vehicle (color comes down the whole chain)
+
+**Classes built:** Vehicle, Car,
