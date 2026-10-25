@@ -338,6 +338,58 @@ Monitoring script (`free`, `df`, `uptime` every 30s → `monitor.log`) → packe
 
 ---
 
+## Java Day 2 — 24 October 2026 — Ternary Operator
+
+**What I learned:**
+- Ternary = `condition ? ifTrue : ifFalse` — read as "condition? if yes … otherwise …"
+- ⚠️ Ternary is a **value**, not a command → branches hold values (`"Adult"`), NOT `System.out.println(...)` (println returns nothing)
+- Use it to assign (`String status = age >= 18 ? "Adult" : "Minor";`) or right inside `println(...)`
+- A `boolean` variable is already a condition: `even ? ... : ...` (same as `if (isOk)`)
+- `:` is one colon; `::` is a different thing (later)
+- Redundant patterns collapse: `cond ? true : false` and `if (cond) x = true; else x = false;` → `x = cond;`
+- `"true"` in quotes is a `String`, not a `boolean`; type `boolean` is lowercase
+- Course quiz: lost a point on `=` vs `==` (misclick, knew the answer) → in look-alike options, scan for `=` / `==` first
+
+**Practice:** `status` with ternary ✅, even/odd inside `println` ✅
+
+---
+
+## Java Day 3 — 26 October 2026 — Loops
+
+**IDEA fixes after moving the project:**
+- `Module JDK is not defined` → `Cmd + ;` → SDK 21, Modules → Module SDK = Project SDK
+- Orange cup ☕ icons = IDEA doesn't see the files as project sources → open the `java` folder (with `pom.xml`) as the project; blue `C` = OK
+- File name must equal class name (`LoopsPractice.java` → `class LoopsPractice`), otherwise nested "matryoshka" + duplicate class
+- `reached end of file while parsing` = a `}` is missing
+- `Cmd + /` — comment/uncomment selected lines
+
+**What I learned:**
+- Iteration = one pass of the loop
+- `i++` = `i = i + 1`; `i--`; `sum += i`
+- `while (cond) { ... }` — checks BEFORE each pass; forget the step → infinite loop (stop with ⏹ in Run)
+- `for (start; condition; step)` — order: start → check → body → **step** → check … (step runs AFTER the body, so `i = 0` prints 0 first)
+- **Off-by-one**: `i = 0; i <= 10` = 11 numbers; check first and last iteration (boundary values again)
+- Counting down: `for (int i = 10; i > 0; i--)`
+- Loop variable `i` lives only inside its `for`; a variable declared in `main` lives in the whole `main`
+- **Accumulator** pattern: create `sum = 0` BEFORE the loop, add inside, print AFTER
+- `break` = leave the loop; `continue` = skip to the next pass
+- Code after `break` in the same block → `unreachable statement`
+- **Search pattern**: `while (true) { if (found) { print; break; } i++; }` — step at the END of the body, outside the `if`
+- `do { ... } while (cond);` — runs at least once (input validation), `;` required
+- Nested loops: inner loop runs fully for each outer pass; work multiplies
+- Naming: `i/j/k` only for short `for` counters, otherwise meaningful names (`countdown`); `camelCase` vars, `PascalCase` classes
+
+**Practice (`LoopsPractice.java`):**
+1. ✅ 1→10 and 10→1 with `for` (fixed off-by-one)
+2. ✅ Sum 1..100 = 5050 (accumulator)
+3. ✅ Countdown with `while` + "Liftoff!"
+4. ✅ FizzBuzz 1..30 (condition inside loop)
+5. ✅ First number > 100 divisible by 7 and 13 → 182 (`while (true)` + `break`)
+6. ⏳ do-while + Scanner validator (1..5) — **next session**
+7. ⏳ Nested loops: star staircase — **next session**
+
+---
+
 ## Confidence Self-Check
 
 > Updated honestly. Goal: see real progress, not delusion.
@@ -365,6 +417,9 @@ Monitoring script (`free`, `df`, `uptime` every 30s → `monitor.log`) → packe
 | Java if / else / logic ops | 🟢 High | Mapped from Python easily, boundaries clicked |
 | Java switch | 🟡 Medium | Classic + fall-through understood; arrow switch not practiced |
 | Java types & variables | 🟡 Medium | Init rule and `.equals()` new, needs repetition |
+| Java ternary | 🟡 Medium | Clicked after "it's a value, not a command" |
+| Java for / while | 🟡 Medium | Solved 5 tasks; step placement and off-by-one still need attention |
+| Java do-while / nested loops | 🔴 Low | Theory only, practice next |
 
 ---
 
@@ -395,4 +450,4 @@ Monitoring script (`free`, `df`, `uptime` every 30s → `monitor.log`) → packe
 
 ---
 
-*Last updated: 23 October 2026*
+*Last updated: 26 October 2026*
