@@ -390,6 +390,57 @@ Monitoring script (`free`, `df`, `uptime` every 30s → `monitor.log`) → packe
 
 ---
 
+## Algorithms Module 1 — 26–27 October 2026 — Asymptotics
+
+**What I learned:**
+- Bubble sort & selection sort: idea, swap via `temp` ("third cup"), why outer loop can stop at `n - 1`
+- Wrote find-min / find-max index in an array myself (`SortPractice.java`) — the inner loop of selection sort
+- Arrays basics: `int[] arr = {...}`, `arr[0]`, `arr.length`, indexes start at 0
+- Handshake formula: `n(n-1)/2` (each of n shakes n−1 hands, every handshake counted twice)
+- O = ceiling ("not worse than"), Ω = floor ("not better than"), Θ = corridor (both); constants/multipliers are dropped
+- With several terms, keep only those that can win; with independent `n` and `m` keep each that can dominate
+- Loops one after another → add (O(n)); nested → multiply (O(n²)); in a sum the biggest term wins
+- Changes **by** something (`i++`, `n - 1`) → O(n); changes **times** (`n /= 10`, `i *= 2`) → O(log n)
+- Function call inside a loop is not one line → multiply its cost (O(n log n))
+- Recursion = a loop dressed as a function; count how many calls happen
+- Algorithms deadline is 28 Dec — least urgent course
+
+**Quiz:** theory 4/5, program estimation 1/5 (each wrong one was a brand-new trap) → revisit later with practice tasks
+
+---
+
+## Java Module 2 practice — 31 October 2026
+
+Files in `java/src/main/java/org/example/module2/` (one class per task, `TaskNN`).
+
+- ✅ Task 1 — multiples of 5 (two versions: `% 5` and step `+= 5`)
+- ✅ Task 2 — number pyramid (nested loops with dependent bound, spaces before every number except the first). Verified by running and diffing with expected output
+- ✅ Task 3 — ternary `ticketPrice = age >= 16 ? 20 : 10` (branches are values, not assignments)
+- 🟡 Task 4 — leap year: logic done (`(y % 4 == 0 && y % 100 != 0) || y % 400 == 0`), **TECH DEBT: output format** `"2024 год — високосный: да"`
+- ⏳ Tasks 5–27 — tech debt, after course deadlines
+
+**New things:**
+- `psvm` + Tab → `main`, `sout` + Tab → `System.out.println()`
+- `print` (stay on line) vs `println` (new line); empty `println()` = line break
+- `Scanner input = new Scanner(System.in); input.nextInt()` — `System.in` = keyboard, mirror of `System.out`; also `nextDouble()`, `nextLine()`, `next()`
+- `int` range ±2.1 billion; too big input → `InputMismatchException` (handled in Module 7 / Task 14)
+- 8 primitives: `byte short int long float double char boolean`; everyday: `int`, `long`, `double`, `char`, `boolean`; `String` is an object
+- Overflow: `byte` 127 + 1 = −128, silently
+
+**Habits to work on (honest feedback):** less harsh on myself; think (table / words) before coding; read the task carefully; stop when tired; move `VPN` and `passport.txt` out of the repo folder.
+
+---
+
+## Course deadlines (master's)
+
+| What | Deadline |
+|---|---|
+| Java: Calculator, Weather service, final test, final project | **23 Nov 2026** |
+| OOP: final test, final project | **23 Nov 2026** |
+| Algorithms: final test, final project | 28 Dec 2026 |
+
+---
+
 ## Confidence Self-Check
 
 > Updated honestly. Goal: see real progress, not delusion.
@@ -450,4 +501,4 @@ Monitoring script (`free`, `df`, `uptime` every 30s → `monitor.log`) → packe
 
 ---
 
-*Last updated: 26 October 2026*
+*Last updated: 2 November 2026*
