@@ -431,7 +431,7 @@ Files in `java/src/main/java/org/example/module2/` (one class per task, `TaskNN`
 
 ---
 
-## Project "Calculator" — 2–4 November 2026 ✅ (README pending)
+## Project "Calculator" — 2–5 November 2026 ✅ ready to submit
 
 Repo: [`drodionichev/calculator`](https://github.com/drodionichev/calculator)
 
@@ -454,6 +454,30 @@ Repo: [`drodionichev/calculator`](https://github.com/drodionichev/calculator)
 - Cyrillic "с" ≠ Latin "c" (homoglyphs), again
 - Expired GitHub token → `git credential-osxkeychain erase` + new classic token with `repo` scope
 - Fun find: `parseDouble` accepts `NaN` and `Infinity`
+- 5 Nov: README in English (features, run, usage, example session, how it works, manual test table), Cyrillic `с`/`ы` commands, removed IDE template `Main.java`
+- `||` joins conditions, not strings: `a.equals("s") || a.equals("ы")`, not `a.equals("s" || "ы")`
+- Commit style: imperative, capitalized, no period (`Add README`, `Fix ...`); don't rewrite pushed history for a message
+
+---
+
+## OOP Day 1 — 5 November 2026 — Class and object
+
+- Class = empty form (which fields exist), object = filled form; `new Operation()` = take a new empty form
+- Dot = "of this object": `food.category = "Еда"`
+- Wrote `Operation` (category, amount, income) + `Main` in `java/.../oop`, created 3 objects
+- `println` takes ONE argument: glue with `+`, not commas (Python habit)
+- Heard about the 4 pillars (encapsulation, abstraction, inheritance, polymorphism) — too much at once; going step by step
+- **Next:** step 2 constructor → step 3 `private` + getters + validation (`throw`) → finance models
+
+---
+
+## Plan to 23 November (after Calculator)
+
+| When | Focus |
+|---|---|
+| 6–8 Nov | OOP basics step by step (constructor, private/getters, validation, methods); finance project models `User`, `Wallet`, `Operation`; new repo with command loop + login |
+| 9–15 Nov | Finance base (30 pts): income/expense, categories, budgets, stats, alerts, save/load to file, validation. Weather service (1–2 evenings, needs Yandex key). Start tests |
+| 16–23 Nov | URL shortener on the same skeleton (core 30 pts); ≥15 tests, README, GitHub Actions for both; Java and OOP final tests; 22–23 buffer |
 
 ---
 
@@ -527,4 +551,4 @@ Repo: [`drodionichev/calculator`](https://github.com/drodionichev/calculator)
 
 ---
 
-*Last updated: 4 November 2026*
+*Last updated: 5 November 2026*
