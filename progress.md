@@ -431,6 +431,32 @@ Files in `java/src/main/java/org/example/module2/` (one class per task, `TaskNN`
 
 ---
 
+## Project "Calculator" — 2–4 November 2026 ✅ (README pending)
+
+Repo: [`drodionichev/calculator`](https://github.com/drodionichev/calculator)
+
+**Built in iterations:**
+1. Base: read number / operator / number, `switch`, division by zero, unknown operator
+2. Refactor: arrow `switch` as an expression (no `break`), guards before the switch instead of the `isOk` flag
+3. Continuous mode: first number read once, `while (true)`, `firstNumber = result`; guards use `continue` instead of `return`
+4. Commands: read operator as `String`, `equalsIgnoreCase("s")` → `break`, `"c"` → read new first number + `continue`
+5. `readNumber(Scanner)` method — first own method (DRY: used 3 times)
+6. `try/catch (NumberFormatException)` inside `readNumber` + loop → re-asks instead of crashing
+7. After external review: operator validated BEFORE reading the second number, user prompts, Russian messages, formatting
+
+**Lessons:**
+- `scanner.next()` = "read the NEXT thing"; a variable doesn't re-read itself (old `input` box bug)
+- A method that returns something goes to the right of `=`, otherwise the result is thrown away
+- Methods are siblings inside the class, never nested in `main`
+- Prompt goes RIGHT BEFORE the line that reads input ("ask, then listen")
+- Reading a stack trace: first line = error, first `org.example` line = where in MY code
+- When rewriting, delete the old code first (I left duplicates 3 times)
+- Cyrillic "с" ≠ Latin "c" (homoglyphs), again
+- Expired GitHub token → `git credential-osxkeychain erase` + new classic token with `repo` scope
+- Fun find: `parseDouble` accepts `NaN` and `Infinity`
+
+---
+
 ## Course deadlines (master's)
 
 | What | Deadline |
@@ -501,4 +527,4 @@ Files in `java/src/main/java/org/example/module2/` (one class per task, `TaskNN`
 
 ---
 
-*Last updated: 2 November 2026*
+*Last updated: 4 November 2026*
