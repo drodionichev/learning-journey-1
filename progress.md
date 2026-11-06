@@ -471,6 +471,47 @@ Repo: [`drodionichev/calculator`](https://github.com/drodionichev/calculator)
 
 ---
 
+## OOP Day 2 — 6 November 2026 — OOP Module 1 done ✅
+
+Decision: go through course modules first (time box until ~12 Nov), with a small practice after each, then projects.
+
+**Constructor & encapsulation (`Operation`):**
+- Constructor = form that arrives already filled; same name as class, no return type; `this.x = x` → "my field = what was passed"
+- Once you write your own constructor, the default empty one disappears
+- `private` fields + getters (`getX()`, for boolean `isX()`), no setters for immutable things (an operation is like a receipt)
+- Validation in the constructor with `throw new IllegalArgumentException(...)` (`throw` = the other side of `try/catch`)
+- Validate the PARAMETER, not the field (field is still empty → `getAmount()` returns 0)
+- `IllegalAccessException` ≠ `IllegalArgumentException` (autocomplete trap)
+- Code like `if` must live inside a method/constructor; "illegal start of type" = code directly in class body
+- Methods depend on type: `String` has `.isBlank()`, `double`/`boolean` can't be "empty"
+- Stack trace: `<init>` = constructor
+- Class order: fields → constructors → public methods → private helpers
+
+**Wallet (methods that change the object):**
+- `addIncome`, `addExpense`, `getBalance`; each object has its own state (my wallet vs mom's wallet)
+- non-`static` method = skill of a specific object (`barsik.eat()`); `static` = shared, called on the class
+- Overloading: `Wallet()` and `Wallet(double initialBalance)`; Java picks by arguments (like overloaded `println`)
+- `this(0)` = call my other constructor; must be the first line; keeps logic in one place
+- Guard first, then assign; honest error messages (0 allowed for start, not "must be positive")
+- Expense may go below zero: the app is a tracker (accountant), not a bank (ATM); notify instead of refusing
+- Boundary: `< 0` vs `<= 0` for income/expense
+- Return value is thrown away unless you print or store it
+
+**Access modifiers, static, references:**
+- `public` (street) / `protected` (entrance + children) / package-private, nothing written (entrance) / `private` (own flat)
+- My constructors were package-private by accident → made them `public`
+- Private helper `validateAmount()` removed duplicate checks (DRY)
+- `static` field = notice board shared by all objects (`walletCount++` in `Wallet(double)` after the guard → counts both constructors via `this(0)`)
+- `static` method has no `this`, sees only static fields; called as `Wallet.getWalletCount()`
+- Constants: `static final`, `UPPER_SNAKE_CASE`
+- Objects are referenced by "shortcuts": `b = a` doesn't copy; only `new` creates an object
+- `null` = shortcut to nothing; where it comes from: "nothing yet" (no logged-in user), unfilled object field, "not found" (map lookup)
+- `category == null || category.isBlank()` — null check first; `||` stops early (short-circuit) → no NPE
+
+**Git:** renamed `main.java` → `Main.java` with `git mv` (macOS is case-insensitive); committed old practice files (`SortPractice`, `module2/`)
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
@@ -551,4 +592,4 @@ Repo: [`drodionichev/calculator`](https://github.com/drodionichev/calculator)
 
 ---
 
-*Last updated: 5 November 2026*
+*Last updated: 7 November 2026*
