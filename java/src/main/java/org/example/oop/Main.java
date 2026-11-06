@@ -38,5 +38,20 @@ class Main {
         broWallet.addExpense(1500);
 
         System.out.println(broWallet.getBalance());
+
+        Wallet firstWallet = new Wallet(10);
+        Wallet secondWallet = new Wallet(20);
+        Wallet thirddWallet = new Wallet(30);
+
+        System.out.println(Wallet.getWalletCount());
+
+        Wallet a = new Wallet();
+        Wallet b = a;
+        a.addExpense(500);
+
+        System.out.println(a.getBalance());
+        System.out.println(b.getBalance());
+
+//      Operation c = new Operation(null, 300, false);
     }
 }

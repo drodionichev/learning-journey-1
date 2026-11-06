@@ -1,0 +1,311 @@
+// Выводы снимались 28.09.2026 и 05.10.2026, из-за этого могла быть разница в жизни сервера
+// Подключение к собственному серверу, через SSH
+
+sith@MacBook-Pro-Danil python-learning-journey % ssh root@45.38.60.61
+root@45.38.60.61's password:
+Welcome to Ubuntu 24.04 LTS (GNU/Linux 6.8.0-35-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+Last login: Sun Sep 27 17:25:37 2026 from 95.177.87.113
+                                    // === Обязательная часть === //
+root@donaldduckserver-1:~# whoami && id
+root
+uid=0(root) gid=0(root) groups=0(root)
+
+// whoami показывает под каким юзером заходит юзер. Я зашел под юзером = 0, основная группа = 0, пользователь
+// состоит в одной группы - root (0)
+
+root@donaldduckserver-1:~# uname -a
+Linux donaldduckserver-1 6.8.0-35-generic #35-Ubuntu SMP PREEMPT_DYNAMIC Mon May 20 15:51:52 UTC 2024 x86_64 x86_64 x86_64 GNU/Linux
+
+// uname -a показывает инфу про ядро и архитектуру процессора, в выводе отображается, что наш сервер на Линуксе,
+// его хост donaldduckserver-1, 64-битный процессор, в основе лежит взаимодействие Линукса и программ GNU
+
+root@donaldduckserver-1:~# cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+
+// cat /etc/os-release - выводит содержимое файла, по нему видно, что ОС Ubuntu, основана на Debian
+
+root@donaldduckserver-1:~# uptime
+20:18:45 up 80 days,  3:55,  2 users,  load average: 0.00, 0.00, 0.00
+root@donaldduckserver-1:~#
+
+// uptime показывает сколько система работает без перезагрузки, по команде видно что 80 дней без перезагрузки,
+// 2 пользователя потому что открыто 2 подключения по ssh
+
+root@donaldduckserver-1:~# free -h
+               total        used        free      shared  buff/cache   available
+Mem:           961Mi       369Mi        82Mi       3.9Mi       650Mi       592Mi
+Swap:             0B          0B          0B
+
+// free -h - показывает сколько оперативной памяти занято. Видно, что всего 961 мб, а доступно 592
+
+root@donaldduckserver-1:~# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs            97M  872K   96M   1% /run
+/dev/vda1       9.4G  4.5G  4.5G  50% /
+tmpfs           481M     0  481M   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+overlay         9.4G  4.5G  4.5G  50% /var/lib/docker/rootfs/overlayfs/11f5c7cce92e2ffa2c88c306314c1d097de7f583d85eb81e95d5534191b6315b
+tmpfs            97M  8.0K   97M   1% /run/user/0
+
+// df -h показывает, сколько используется пространство в диске. Основной диск /dev/vda1, overlay - тот же
+// самый диск, через который работает контейнер Docker
+
+root@donaldduckserver-1:~# lsblk
+NAME   MAJ:MIN RM SIZE RO TYPE MOUNTPOINTS
+vda    253:0    0  10G  0 disk
+└─vda1 253:1    0  10G  0 part /
+
+// lsblk - показывает список блочных устройств, то есть это диски, флешки и т.д. По выводу видно, что
+// используется один диск на 10 гб, у которого есть раздел vda1
+
+root@donaldduckserver-1:~# nproc
+1
+
+// показывает сколько ядер CPU доступно системе, по выводу видно, что 1
+
+root@donaldduckserver-1:~# ps aux | head -20
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  1.2  21704 12368 ?        Ss   Jul10  55:55 /sbin/init
+root           2  0.0  0.0      0     0 ?        S    Jul10   0:08 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    Jul10   0:00 [pool_workqueue_release]
+root           4  0.0  0.0      0     0 ?        I<   Jul10   0:00 [kworker/R-rcu_g]
+root           5  0.0  0.0      0     0 ?        I<   Jul10   0:00 [kworker/R-rcu_p]
+root           6  0.0  0.0      0     0 ?        I<   Jul10   0:00 [kworker/R-slub_]
+root           7  0.0  0.0      0     0 ?        I<   Jul10   0:00 [kworker/R-netns]
+root          12  0.0  0.0      0     0 ?        I<   Jul10   0:00 [kworker/R-mm_pe]
+root          13  0.0  0.0      0     0 ?        I    Jul10   0:00 [rcu_tasks_kthread]
+root          14  0.0  0.0      0     0 ?        I    Jul10   0:00 [rcu_tasks_rude_kthread]
+root          15  0.0  0.0      0     0 ?        I    Jul10   0:00 [rcu_tasks_trace_kthread]
+root          16  0.0  0.0      0     0 ?        S    Jul10  78:35 [ksoftirqd/0]
+root          17  0.0  0.0      0     0 ?        I    Jul10  19:47 [rcu_preempt]
+root          18  0.0  0.0      0     0 ?        S    Jul10   0:58 [migration/0]
+root          19  0.0  0.0      0     0 ?        S    Jul10   0:00 [idle_inject/0]
+root          20  0.0  0.0      0     0 ?        S    Jul10   0:00 [cpuhp/0]
+root          21  0.0  0.0      0     0 ?        S    Jul10   0:00 [kdevtmpfs]
+root          22  0.0  0.0      0     0 ?        I<   Jul10   0:00 [kworker/R-inet_]
+root          24  0.0  0.0      0     0 ?        S    Jul10   0:00 [kauditd]
+
+// ps aux показывет какие процессы выполняются, отображается 19 процессов с заголовком.
+// видно, что PID = 1 это самый первый процесс, прародитель
+// Остальные процессы это уже запущенные ядром, это видно по "[]" в поле COMMAND
+// Больше всего занимает времени процесс 78:35 [ksoftirqd/0]
+
+                                        // === База === //
+
+root@donaldduckserver-1:~# top -bn1 | head -20
+top - 10:53:40 up 86 days, 18:29,  1 user,  load average: 0.34, 0.22, 0.17
+Tasks: 100 total,   1 running,  99 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us, 16.7 sy,  0.0 ni, 75.0 id,  8.3 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :    961.7 total,    117.0 free,    373.7 used,    612.3 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.    587.9 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    738 root      20   0  804388   4352    768 S  81.2   0.4     48,53 mtproto+
+      1 root      20   0   21576  11984   8656 S   0.0   1.2  62:13.72 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:08.93 kthreadd
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+     12 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+     13 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tas+
+     14 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tas+
+     15 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tas+
+     16 root      20   0       0      0      0 S   0.0   0.0  84:52.01 ksoftir+
+
+// top - это монитор процессов и нагрузки. Из вывода видно, что всего 100 задач, 1 запущена, остальные 99
+// в режиме ожидания. Используется 373 мб памяти, 613 закешировано. Наибольшую нагрузку на себя берет процесс
+// mtproto+
+
+root@donaldduckserver-1:~# cat /proc/meminfo | head -10
+MemTotal:         984736 kB
+MemFree:          122484 kB
+MemAvailable:     604788 kB
+Buffers:           67520 kB
+Cached:           533080 kB
+SwapCached:            0 kB
+Active:           205556 kB
+Inactive:         559408 kB
+Active(anon):      79092 kB
+Inactive(anon):    89264 kB
+
+// cat /proc/meminfo показывает подробную информацию о памяти системы
+// если провести echo $((984736 / 1024)), то получится ответ 961. Значит free -h берет цифры отсюда
+// и переводит их из кб в мб
+// также если провести ls -l /proc/meminfo то весить файл будет 0, значит ядро его самостоятельно
+// генерирует в момент запуска команды
+
+root@donaldduckserver-1:~# ls -l /etc/ | head -15
+total 720
+drwxr-xr-x 2 root root 4096 Jun 21 2024 PackageKit
+drwxr-xr-x 3 root root 4096 Jun 21 2024 X11
+drwxr-xr-x 3 root root 4096 Jun 21 2024 acpi
+-rw-r--r-- 1 root root 3444 Jul 5 2023 adduser.conf
+drwxr-xr-x 2 root root 4096 Jun 21 2024 alternatives
+drwxr-xr-x 4 root root 4096 Jun 21 2024 apparmor.d
+drwxr-xr-x 8 root root 4096 Mar 31 2026 apt
+-rw-r--r-- 1 root root 2319 Mar 31 2024 bash.bashrc
+-rw-r--r-- 1 root root 367 Aug 2 2022 bindresvport.blacklist
+drwxr-xr-x 2 root root 4096 May 17 2024 binfmt.d
+drwxr-xr-x 3 root root 4096 Jun 21 2024 ca-certificates
+-rw-r--r-- 1 root root 6288 Jun 21 2024 ca-certificates.conf
+drwxr-xr-x 5 root root 4096 Jun 21 2024 cloud
+drwxr-xr-x 2 root root 4096 Mar 31 2026 containerd
+
+// здесь вижу папку etc - содердит файлы конфигураций. В итоге вижу здесь доступы каждого
+// системного файла сервера: Часть относится к каталогу (d), другие это файлы (-)
+
+// Большинство файлов созданы были в 24 году, именно тогда создалась сборка, а в 31 марта 2026 года
+// я настраивал сервер: работал  с apt и установил Docker (появился containerd)
+// в выводе есть 2 вида доступов:
+
+// drwxr-xr-x 2 root root - каталог, владелец root может смотреть, изменять и заходить внутрь,
+// группы и остальные могут читать и запускать
+
+// -rw-r--r-- root root - файл, пользователь root может читать и изменять,
+//группы и остальные могут только читать
+
+                                        // === Продвинутая часть === //
+
+root@donaldduckserver-1:~# cat /proc/cpuinfo | grep "model name" | uniq
+model name : Intel Xeon Processor (Skylake, IBRS)
+
+// Команда cat читает файлы cpuinfo об процессоре, фильтр происходит по model name и убирает дубликаты,
+// если они есть
+
+// В выводе видно, что процессор интел
+
+root@donaldduckserver-1:~# pstree -p | head -30 || ps -ef --forest | head -30
+-bash: pstree: command not found
+root@donaldduckserver-1:~# echo $?
+0
+
+// В начале был запуск команды pstree -p | head -30 || ps -ef --forest | head -30, но вторая часть
+// не работала (ps -ef --forest | head -30), так как при запуске pstree -p была ошибка, а head -30 отдал 0. Поэтому || решил, что
+// всё успешно, и запасная команда не запустилась При запуске set -o pipefail система будет
+// ожидать, что если хоть 1 команда отдала с ошибкой, то вся запись ошибочна
+
+root@donaldduckserver-1:~# set -o pipefail
+root@donaldduckserver-1:~# pstree -p | head -30 || ps -ef --forest | head -30
+-bash: pstree: command not found
+UID          PID    PPID  C STIME TTY          TIME CMD
+root           2       0  0 Jul10 ?        00:00:08 [kthreadd]
+root           3       2  0 Jul10 ?        00:00:00  \_ [pool_workqueue_release]
+root           4       2  0 Jul10 ?        00:00:00  \_ [kworker/R-rcu_g]
+root           5       2  0 Jul10 ?        00:00:00  \_ [kworker/R-rcu_p]
+root           6       2  0 Jul10 ?        00:00:00  \_ [kworker/R-slub_]
+root           7       2  0 Jul10 ?        00:00:00  \_ [kworker/R-netns]
+root          12       2  0 Jul10 ?        00:00:00  \_ [kworker/R-mm_pe]
+root          13       2  0 Jul10 ?        00:00:00  \_ [rcu_tasks_kthread]
+root          14       2  0 Jul10 ?        00:00:00  \_ [rcu_tasks_rude_kthread]
+root          15       2  0 Jul10 ?        00:00:00  \_ [rcu_tasks_trace_kthread]
+root          16       2  0 Jul10 ?        01:24:59  \_ [ksoftirqd/0]
+root          17       2  0 Jul10 ?        00:22:01  \_ [rcu_preempt]
+root          18       2  0 Jul10 ?        00:01:02  \_ [migration/0]
+root          19       2  0 Jul10 ?        00:00:00  \_ [idle_inject/0]
+root          20       2  0 Jul10 ?        00:00:00  \_ [cpuhp/0]
+root          21       2  0 Jul10 ?        00:00:00  \_ [kdevtmpfs]
+root          22       2  0 Jul10 ?        00:00:00  \_ [kworker/R-inet_]
+root          24       2  0 Jul10 ?        00:00:00  \_ [kauditd]
+root          25       2  0 Jul10 ?        00:00:41  \_ [khungtaskd]
+root          26       2  0 Jul10 ?        00:00:00  \_ [oom_reaper]
+root          28       2  0 Jul10 ?        00:00:00  \_ [kworker/R-write]
+root          29       2  0 Jul10 ?        00:04:25  \_ [kcompactd0]
+root          30       2  0 Jul10 ?        00:00:00  \_ [ksmd]
+root          31       2  0 Jul10 ?        00:00:00  \_ [khugepaged]
+root          32       2  0 Jul10 ?        00:00:00  \_ [kworker/R-kinte]
+root          33       2  0 Jul10 ?        00:00:00  \_ [kworker/R-kbloc]
+root          34       2  0 Jul10 ?        00:00:00  \_ [kworker/R-blkcg]
+root          35       2  0 Jul10 ?        00:00:00  \_ [irq/9-acpi]
+root          36       2  0 Jul10 ?        00:00:00  \_ [kworker/R-tpm_d]
+
+// В выводе видно, что есть строки с \_ и без. Это означает ветки и обозначается, кто под кем
+// Также у строк есть 2 отличия. [kthreadd] процесс имеет PID=2 и PPID=0. У других процессов PPID = 2,
+// такое же как PID у [kthreadd]. Это означает, что [kthreadd] прародитель этих процессов
+
+root@donaldduckserver-1:~# cat /proc/1/status
+Name:	systemd
+Umask:	0000
+State:	S (sleeping)
+Tgid:	1
+Ngid:	0
+Pid:	1
+PPid:	0
+TracerPid:	0
+Uid:	0	0	0	0
+Gid:	0	0	0	0
+FDSize:	256
+Groups:
+NStgid:	1
+NSpid:	1
+NSpgid:	1
+NSsid:	1
+Kthread:	0
+VmPeak:	   23100 kB
+VmSize:	   21576 kB
+VmLck:	       0 kB
+VmPin:	       0 kB
+VmHWM:	   12880 kB
+VmRSS:	   11984 kB
+RssAnon:	    3328 kB
+RssFile:	    8656 kB
+RssShmem:	       0 kB
+VmData:	    2552 kB
+VmStk:	     132 kB
+VmExe:	      44 kB
+VmLib:	   12188 kB
+VmPTE:	      80 kB
+VmSwap:	       0 kB
+HugetlbPages:	       0 kB
+CoreDumping:	0
+THP_enabled:	1
+untag_mask:	0xffffffffffffffff
+Threads:	1
+SigQ:	1/3600
+SigPnd:	0000000000000000
+ShdPnd:	0000000000000000
+SigBlk:	7fefc1fe28014a03
+SigIgn:	0000000000001000
+SigCgt:	00000000000004ec
+CapInh:	0000000000000000
+CapPrm:	000001ffffffffff
+CapEff:	000001ffffffffff
+CapBnd:	000001ffffffffff
+CapAmb:	0000000000000000
+NoNewPrivs:	0
+Seccomp:	0
+Seccomp_filters:	0
+Speculation_Store_Bypass:	thread vulnerable
+SpeculationIndirectBranch:	conditional enabled
+Cpus_allowed:	1
+Cpus_allowed_list:	0
+Mems_allowed:	00000000,00000000,00000000,00000000,00000000,00000000,00000001 // (обрезано)
+Mems_allowed_list:	0
+voluntary_ctxt_switches:	2576958
+nonvoluntary_ctxt_switches:	1971536
+x86_Thread_features:
+x86_Thread_features_locked:
+
+// cat /proc/1/status открывает информацию о самом первом процессе. Видно, что процесс называется systemd,
+// он находится в состоянии ожидания (sleeping), его идентификатор = 1 (PID), а родительский идентификатор = 0
+// (PPID) -> следовательно его не запускал процесс, а запустило само ядро. Также видно из вывода,
+// что процесс работает от имени root
+
+// Сам процесс systemd инициализирует процессы и запускает их.
