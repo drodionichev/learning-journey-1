@@ -527,6 +527,25 @@ Picked 5 of 19 self-check tasks (rest = tech debt: 1, 2, 4, 5, 6, 10, 11, 13–1
 
 ---
 
+## OOP Day 4 — 8 November 2026 — Inheritance, abstract classes, interfaces ✅
+
+Package `oop.inheritance` (not committed yet → commit `Add inheritance practice: Animal, Shelter, Performer, Circus`).
+
+- **Inheritance**: `Dog extends Animal` gets everything from the parent (`sleep()` for free); `super(name)` = call the parent's constructor, first line (cousin of `this(...)`); parent's `private` fields are closed even for children → use getters (`protected` = entrance + children)
+- Inheritance goes DOWN only: a cat can't `bark()` (siblings share nothing)
+- A subclass is worth it only when behavior/data differs; if only a value differs → a field (that's why `Operation` has `boolean income`, not `Income`/`Expense` classes)
+- **Abstract class**: `abstract class Animal` can't be instantiated ("Animal is abstract; cannot be instantiated"); `abstract void makeSound();` = empty field every child MUST fill (`@Override`)
+- **Polymorphism**: `Shelter` keeps `List<Animal>`, `makeAllSounds()` calls `animal.makeSound()` → each answers its own way; adding `Parrot` changed nothing in `Shelter`
+- Wrong room again: put the list of animals inside `Animal` → moved it to its own class `Shelter` (like `Group` keeps students)
+- Call the method on the loop variable (`animal.makeSound()`), not on the list
+- **Interface** = skill/contract ("what you can do"), abstract class = identity ("who you are"); `interface Performer { void doTrick(); }`, `implements`; one parent, many interfaces
+- `Circus` keeps `List<Performer>` (has-a, so the circus itself does NOT implement `Performer`); `Robot` (not an animal) performs too; `Cat` → "cannot be converted to Performer"
+- In `Type name`, the left part is a type that must exist (`Performer performer`); renaming types with `Shift+F6`
+- Names must tell the truth (`Dog cat = ...` is the left/right bug again)
+- Finance link: storage behind an interface (`WalletStorage` → `FileStorage`, later `DatabaseStorage`) — criterion 17 "interfaces for storages"
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
@@ -607,4 +626,4 @@ Picked 5 of 19 self-check tasks (rest = tech debt: 1, 2, 4, 5, 6, 10, 11, 13–1
 
 ---
 
-*Last updated: 7 November 2026*
+*Last updated: 8 November 2026*
