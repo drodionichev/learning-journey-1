@@ -512,6 +512,21 @@ Decision: go through course modules first (time box until ~12 Nov), with a small
 
 ---
 
+## OOP Day 3 — 7 November 2026 — Module 1 tasks ✅
+
+Picked 5 of 19 self-check tasks (rest = tech debt: 1, 2, 4, 5, 6, 10, 11, 13–19; 16 Mage optional). Package `oop.task`.
+
+- ✅ **Bell** — object remembers state between calls: `boolean nextIsDing` + flip with `!` inside `sound()`; field NOT `static` (two bells must not share state); constructor prepares, methods act
+- ✅ **Balance** — two fields `left`/`right`, `getSituation()` RETURNS `"="`/`"l"`/`"r"` (main prints); `this(0, 0)`; validation in constructor (`< 0`) and methods (`<= 0`, private `validateAmount`); parameter order matters (`left, right`) — Java can't catch swapped same-type args
+- ✅ **Programmer** — position not a constructor param, starts as `"intern"`; `work()` with switch expression `position = switch (position) {...}`; parameter with the same name hides the field (shadowing); switch branches must be values (no `println`); `void` when nothing is returned
+- ✅ **Payer** — `toString()` + `@Override`; every class extends `Object`; `println(obj)` calls `toString()` automatically; override vs overload table; don't log full card numbers in real systems
+- ✅ **Student & Group** — composition (has-a): `private List<Student> students = new ArrayList<>()`, `add`, `size`, `get`; for-each `for (Student s : students)`; your own class is a type (`Student student`); instance methods are called on an object, not on the class
+- `printf`/`print` don't add a newline → output glues to the previous line; use `println`
+- Variables lowercase, class names uppercase; data in quotes stays as in the task ("GroupA")
+- Got teacher feedback: strengths — transferring patterns, taste for code, tester mindset, asking "why", pace; to work on — "wrong room" (where code lives), add vs replace, small details of the task, self-criticism. Focus: before coding, say where it lives (field / constructor / method)
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
