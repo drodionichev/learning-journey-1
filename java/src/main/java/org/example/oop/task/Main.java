@@ -25,5 +25,20 @@ class Main {
         System.out.println(Anna.getPosition());
         Anna.work();
         System.out.println(Anna.getPosition());
+
+        Payer Boss = new Payer("Bor", "Pol", "Yaroslavl", "42424242424242");
+        System.out.println(Boss);
+
+        Student alice = new Student("Alice", "GroupA");
+        Student bob = new Student("Bob", "GroupA");
+        Student charlie = new Student("Charlie", "GroupB");
+
+        Group group = new Group();
+        group.addStudent(alice);
+        group.addStudent(bob);
+        group.addStudent(charlie);
+
+        group.printStudents();
+
     }
 }
