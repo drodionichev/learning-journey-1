@@ -546,6 +546,26 @@ Package `oop.inheritance` (not committed yet → commit `Add inheritance practic
 
 ---
 
+## 8 November 2026 (evening) — Security incident + composition vs aggregation
+
+**Incident:** `VPN` (DNS reset notes) and `passport.txt` (sysadmin "server passport": public server IP, root login by password, my client IP) were committed on 7 Nov via `git add .` and pushed to the PUBLIC repo. No passwords/keys inside.
+- Fix: history rewritten with `git filter-repo --invert-paths`, force-pushed; both names added to `.gitignore`; files moved to `~/Documents`
+- Local sync after a force push: move files out first → `git fetch origin` → `git reset --hard origin/main` (NOT `git pull` — it would merge the old history back)
+- TODO: if the course server is not needed anymore — shut it down; otherwise disable root password login, use SSH keys
+- Lesson: never `git add .` in the repo root; IPs, server logs, login notes don't go to a public repo; `git status` before every commit
+
+**Composition vs aggregation (OOP module 2, part 2):**
+- Both are has-a; difference = can the part live without the whole?
+- Composition: part created INSIDE, `final`, no setter, not shared (Car → Engine; **User → Wallet**)
+- Aggregation: part created outside and passed in, can be shared and outlive the whole (Shelter/Circus → animals: Rex is in both; Group → students)
+- `User`: `final Wallet wallet = new Wallet()` in the constructor, validation of login/password, no `getPassword()` — `checkPassword(attempt)` instead (password never leaves the object)
+- Duplicate logins can't be checked by `User` itself (it knows only itself) → belongs to a registry that keeps all users (`UserRegistry`, ideally `HashMap` login → user)
+- Chain `user.getWallet().addIncome(10)` reads left to right like a path
+- `Wallet.toString()` with `@Override`; error "Method does not override method from its superclass" = name/signature mismatch (wrote `doTrick` from the circus 😄); `toString` returns, doesn't print
+- **Next:** fix copy-pasted error messages in `User` ("Category must be filled"), add `checkPassword`, test it; then `UserRegistry` with `HashMap`
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
