@@ -566,6 +566,35 @@ Package `oop.inheritance` (not committed yet → commit `Add inheritance practic
 
 ---
 
+## 9–11 November 2026 — OOP module 2 end + module 3 start
+
+**Module 2 leftovers:**
+- `super.method()` — extend the parent's method instead of replacing it (`super.sleep()` + purr); without `super.` the method calls itself forever
+- Constructors are not inherited but the parent's is always called first; no `super(...)` → Java inserts `super()`
+- `final`: variable (can't reassign), method (can't override), class (can't extend); `final` reference ≠ immutable contents; `sealed ... permits`
+- Encapsulation deeper: `protected` (same package — everyone; other package — only subclasses via `this`); `public` = a promise that's hard to change; don't leak internal lists → `Collections.unmodifiableList(...)` (read-only window, not a copy; `clear()` → `UnsupportedOperationException`)
+- Polymorphism: static (overloading, chosen at compile time by arguments) vs dynamic (overriding, chosen at runtime by the real object); `Animal a = new Cat()` ok, `Cat c = new Animal()` no
+- Casting: implicit (`int` → `long`), explicit `(int) 3.99` = 3, `(int) -3.99` = -3 (cut toward zero; Python `//` floors → -4)
+- `instanceof` with pattern: `if (animal instanceof Performer performer) performer.doTrick();` — loop OUTSIDE, `if` INSIDE, check `animal` not `animals` (`showTalents()` in `Shelter`)
+- SOLID in one line each; DRY, KISS, YAGNI
+- `countPerformers()` — still to write myself, without looking
+- Module 2 self-check tasks → later: quizzes 18, 24–31; code tasks 1 (Shape), 14 (Account), 19 (Barracks), 20 (Ship)
+
+**Feedback I gave Claude:** don't skip parts of lessons, don't rush; go section by section, explain even familiar parts, move on after "понял". Noticed myself that I was copying instead of thinking → write things myself without looking.
+
+**Module 3, lesson 1 — Object:**
+- Every class extends `Object`; `Object[]` can hold anything (popcorn stall in the zoo), but you lose the specific methods and type safety
+- `toString()` returns `String` (not void); default = class name + "@" + hex `hashCode()`
+- `println(Object)` = `print(obj == null ? "null" : obj.toString(), true)`; `true` = add a new line; null checked first
+- `println(null object)` prints "null", but `w.toString()` on null → NPE: never call a method on null
+- `println(wallet)` uses both polymorphisms: overload choice + `toString()` override
+- `==` on objects compares references; default `equals()` too
+- Overriding `equals(Object obj)`: same object → true; null / other class → false; cast `(User) obj` (same object, new label of a type that knows the fields); compare meaningful field
+- `User.equals` by login: `a == b` → false, `a.equals(b)` → true
+- **Next:** `hashCode()` and the equals/hashCode contract (HashSet bug), then `getClass()`/`clone()`, then lessons 2–4
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
@@ -646,4 +675,4 @@ Package `oop.inheritance` (not committed yet → commit `Add inheritance practic
 
 ---
 
-*Last updated: 8 November 2026*
+*Last updated: 11 November 2026*
