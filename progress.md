@@ -595,6 +595,33 @@ Package `oop.inheritance` (not committed yet → commit `Add inheritance practic
 
 ---
 
+## 12–14 November 2026 — Finance project (OOP final project): models + services
+
+Repo: `drodionichev/personal-finance`, packages `model` / `service` / `cli`.
+
+**Done:**
+- `Operation`, `User` (`equals`/`hashCode` by login, `checkPassword`), `Wallet` (operations list + `Map<String, Double>` budgets, balance, totals, expenses by category, remaining budget) — checked on the task's sample data
+- `AuthService`: `Map<String, User> users`; `register` (duplicate → "Логин уже занят"), `login` (`user == null || !user.checkPassword(...)` → "Неверный логин или пароль"); tested in `Main` with `try/catch` + `e.getMessage()`
+- `FinanceService.addExpense(user, category, amount)` → `List<String>` alerts: budget exceeded (`hasBudget && getRemainingBudget < 0`), balance below zero; checked step by step (0 → exactly at limit → over → balance exactly 0 → minus)
+- `ConsoleApp` started: fields `currentUser` (null = nobody logged in, not final), `AuthService`, `FinanceService`, `Scanner`
+
+**Learned / clicked:**
+- Map value can be any object: `Map<String, User>` — key = login, value = the whole user (password + wallet inside)
+- `User user = ...` is just "type + name", same as `int age`
+- Return type is a promise; the object is created inside and returned (`register`, `List<String> alerts`)
+- `void` is only for methods; a variable always has a real type
+- `&&` vs `||`: with `&&` login would NPE or let anyone in; order `user == null` first (short-circuit)
+- Throw where the problem is noticed, catch where you know what to do (services never print)
+- Exception is an object-note: `new IllegalArgumentException("text")` stores the text, `getMessage()` is a getter
+- No constructor written → Java adds an empty one
+- Field vs local variable: state that must survive between commands goes into a field
+
+**Note to self:** `login` and `FinanceService` I wrote myself from questions only, no ready code. Felt down mid-session ("это всё твои решения") — new rule: Claude asks, I write. Check tomorrow: write `AuthService` from scratch without looking.
+
+**Next (15 Nov):** move `ConsoleApp` to `cli`, fix Cyrillic `с` in `currentUser`; `run()` loop (`nextLine`, arrow `switch`, `exit` → `return`), commands register/login/income/expense/budget/stats/logout; save/load to file; then tests, README, CI.
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
