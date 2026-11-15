@@ -622,6 +622,32 @@ Repo: `drodionichev/personal-finance`, packages `model` / `service` / `cli`.
 
 ---
 
+## 15 November 2026 — Finance project: console + saving (started)
+
+**Warm-up:** wrote `AuthService` (`register` + `login`) from memory, questions only — clean.
+
+**ConsoleApp done (all commands):** `run()` loop with arrow `switch`; `register`, `login`, `logout`, `income`, `expense` (prints alerts with for-each), `budget`, `stats` (totals + budgets via `getBudgets().keySet()`, "Бюджеты не заданы" via `isEmpty()`), `exit` → `return`.
+- Helpers: `checkLoggedIn()` (boolean, DRY), `readLine(text)` (print + `nextLine().trim()`), `readNumber(text)` (loops until a number → no `NumberFormatException` in commands); password read without `trim()`
+- `Wallet.getBudgets()` → `Collections.unmodifiableMap`; renamed to `getTotalIncome` / `getTotalExpenses` (Shift+F6)
+- Found bug myself: `expense ` with trailing space → fixed with `trim()`
+
+**Learned:**
+- Field vs local: `currentUser = ...` (assign field) vs `User currentUser = ...` (new local — trap)
+- `void` method exit = `return;`; `return` in `run()` ends the loop/program
+- Success message only after the action, inside `try`; `catch` order: specific (`NumberFormatException`) before general (`IllegalArgumentException`)
+- No string interpolation in Java (`"{text}"` is Python habit); quotes = literal, no quotes = variable
+- `HashMap` doesn't keep insertion order → `LinkedHashMap`
+- `new Map<>()` impossible — `Map` is an interface, create `HashMap` (like `new Performer()` vs `new Dog()`)
+- Serialization: object ↔ bytes; `implements Serializable` on every class in the chain (`User` → `Wallet` → `Operation`)
+- `ObjectOutputStream(new FileOutputStream(...))` + `writeObject`; `ObjectInputStream(new FileInputStream(...))` + `readObject` + cast; try-with-resources closes the stream; `IOException` is checked; multi-catch `IOException | ClassNotFoundException`
+- Dependency via constructor: `AuthService(Map<String, User> users)` + `getUsers()`
+
+**Done in storage:** `FileStorage.save(users)` and `load()` (missing file → empty `HashMap`).
+
+**Next (16 Nov):** in `ConsoleApp` — `storage` field above `authService`, `new AuthService(storage.load())`, remove duplicate field; helper `save()` → call after register/income/expense/budget and on exit; test restart keeps data; add `finance.dat` to `.gitignore`. Then JUnit tests (≥15), README, GitHub Actions. Then Weather (activate Yandex key in the morning).
+
+---
+
 ## Plan to 23 November (after Calculator)
 
 | When | Focus |
