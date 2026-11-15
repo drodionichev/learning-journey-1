@@ -644,7 +644,9 @@ Repo: `drodionichev/personal-finance`, packages `model` / `service` / `cli`.
 
 **Done in storage:** `FileStorage.save(users)` and `load()` (missing file → empty `HashMap`).
 
-**Next (16 Nov):** in `ConsoleApp` — `storage` field above `authService`, `new AuthService(storage.load())`, remove duplicate field; helper `save()` → call after register/income/expense/budget and on exit; test restart keeps data; add `finance.dat` to `.gitignore`. Then JUnit tests (≥15), README, GitHub Actions. Then Weather (activate Yandex key in the morning).
+**Saving connected (after midnight):** `storage` field above `authService` (fields are created top to bottom), `new AuthService(storage.load())`; helper `save()` called only after actions that change data (register, income, expense, budget) and on exit. Restart test passed: login Sith works and `stats` shows income 4000 after relaunch. ✅ Program fully working.
+
+**Next (16 Nov):** `finance.dat` in `.gitignore` + commit if not done; JUnit 5 tests (≥15) for `Wallet`, `AuthService`, `FinanceService`; README; GitHub Actions. Then Weather (activate Yandex key in the morning).
 
 ---
 
