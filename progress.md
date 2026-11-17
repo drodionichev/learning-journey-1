@@ -664,8 +664,8 @@ Repo: `drodionichev/personal-finance`, packages `model` / `service` / `cli`.
 
 | What | Deadline |
 |---|---|
-| Java: Calculator, Weather service, final test, final project | **23 Nov 2026** |
-| OOP: final test, final project | **23 Nov 2026** |
+| Java: Calculator, Weather service, final test, final project | **30 Nov 2026** (moved from 23 Nov) |
+| OOP: final test, final project | **30 Nov 2026** (moved from 23 Nov) |
 | Algorithms: final test, final project | 28 Dec 2026 |
 
 ---
