@@ -646,7 +646,32 @@ Repo: `drodionichev/personal-finance`, packages `model` / `service` / `cli`.
 
 **Saving connected (after midnight):** `storage` field above `authService` (fields are created top to bottom), `new AuthService(storage.load())`; helper `save()` called only after actions that change data (register, income, expense, budget) and on exit. Restart test passed: login Sith works and `stats` shows income 4000 after relaunch. ✅ Program fully working.
 
-**Next (16 Nov):** `finance.dat` in `.gitignore` + commit if not done; JUnit 5 tests (≥15) for `Wallet`, `AuthService`, `FinanceService`; README; GitHub Actions. Then Weather (activate Yandex key in the morning).
+---
+
+## 17 November 2026 — First autotests + CI/CD 🎉
+
+Morning (before work) + evening until 1am. Deadlines for Java and OOP moved to **30 Nov**. Calculator reviewed by mentor: "Работа выполнена превосходно... Высший класс!"
+
+**JUnit 5 set up:** `junit-jupiter` 5.11.3 (`<scope>test</scope>`) + `maven-surefire-plugin` 3.5.2 in `pom.xml`; tests in `src/test/java` mirroring packages; Option+Enter → Create Test.
+
+**20 tests, all green:**
+- `WalletTest` (10): balance, total income, expenses by category (other category + income in same category not counted), remaining budget, boundary "spent exactly limit → 0", rejects zero amount / empty category / zero limit / negative limit, `getBudget` without limit throws
+- `AuthServiceTest` (5): register adds user, login returns registered user, duplicate login, unknown login, wrong password
+- `FinanceServiceTest` (5): no alerts within budget, budget exceeded → 1, balance negative (no budget) → 1, both → 2, boundary exactly limit and balance 0 → empty
+
+**Learned:**
+- AAA (Arrange, Act, Assert); `assertEquals(expected, actual)`, `assertTrue`, `assertThrows(X.class, () -> ...)`
+- Make a test fail once to be sure it can fail
+- Logic is tested through concrete examples chosen by equivalence classes and boundaries
+- Negative test: exactly ONE wrong thing (`setBudget("", 0)` hides a bug)
+- A test must check what its name says (`getBalance` vs `getTotalIncome` trap)
+- Unit test isolation: don't pull `AuthService` into a `FinanceService` test, create `new User(...)`
+- Naming: `whatIsResult`, `whatIsRejected`, `methodWhenConditionThrows`
+- Each test gets a fresh `new AuthService(new HashMap<>())` — no shared state, doesn't touch `finance.dat`
+
+**CI/CD:** `.github/workflows/ci-cd.yml` — on push/PR to main, ubuntu, `setup-java` with `cache: maven`, `mvn -B package` (runs tests), `upload-artifact` with `target/*.jar`. First run: Success, 25s, artifact 11.9 KB. Push needed `workflow` scope on the PAT. Same file covers the CI/CD course homework (report PDF due 27 Dec).
+
+**Next (18 Nov):** README (English, "UI in Russian") → submit finance project; optionally bump actions `@v4` → `@v5` (deprecation warnings). Then Weather (activate Yandex key that day). Then URL shortener; 23–28 Nov topics + final tests.
 
 ---
 
