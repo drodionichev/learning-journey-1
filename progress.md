@@ -671,7 +671,18 @@ Morning (before work) + evening until 1am. Deadlines for Java and OOP moved to *
 
 **CI/CD:** `.github/workflows/ci-cd.yml` — on push/PR to main, ubuntu, `setup-java` with `cache: maven`, `mvn -B package` (runs tests), `upload-artifact` with `target/*.jar`. First run: Success, 25s, artifact 11.9 KB. Push needed `workflow` scope on the PAT. Same file covers the CI/CD course homework (report PDF due 27 Dec).
 
-**Next (18 Nov):** README (English, "UI in Russian") → submit finance project; optionally bump actions `@v4` → `@v5` (deprecation warnings). Then Weather (activate Yandex key that day). Then URL shortener; 23–28 Nov topics + final tests.
+---
+
+## 18–20 November 2026 — GTA 6 break 🎮, README, grading criteria
+
+- 18–19 Nov: break for the GTA 6 release (deserved after a week of 1am nights)
+- 20 Nov: README in Russian (study project; English later for portfolio) — features table, structure, run, tests, storage. Pushed.
+- **Mentor call:** tests can't be submitted after **30 Nov** (no points). Weather and URL shortener also by 30 Nov. Finance project too, but submit as soon as polished.
+- Went through the OOP project rubric (50 pts): base ~28–30/30, medium ~3/10, high ~7–9/10 → ~40. Decided to do quick wins before submitting.
+- Started: `FinanceService` alerts reworked — neutral texts; budget block (`hasBudget` once, local vars `expense`/`limit`, `if` exceeded / `else if` ≥80%); balance block outside budget (`== 0` / `else if < 0`). One old test (`noAlertsWhenSpentExactlyLimitAndBalanceZero`) is red — requirements changed, not a bug. **Not pushed** (would turn CI red).
+- Learned: Java has no chained comparisons (`80 <= x < 100` is Python); a test that fails after a requirement change needs updating, with a precise assertion (`assertEquals(2, size)`), not a vague `!isEmpty()`.
+
+**Next (21 Nov):** fix that test (exact count + new name); tests for 80% and zero balance; `stats` with income/expenses per category; `help` command; `Storage` interface + `FileStorage implements Storage`; integration test save → load; example session in README → submit finance. Then Weather (activate Yandex key that day), URL shortener, final tests prep — all by 30 Nov.
 
 ---
 
