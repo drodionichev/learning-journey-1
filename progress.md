@@ -682,7 +682,32 @@ Morning (before work) + evening until 1am. Deadlines for Java and OOP moved to *
 - Started: `FinanceService` alerts reworked — neutral texts; budget block (`hasBudget` once, local vars `expense`/`limit`, `if` exceeded / `else if` ≥80%); balance block outside budget (`== 0` / `else if < 0`). One old test (`noAlertsWhenSpentExactlyLimitAndBalanceZero`) is red — requirements changed, not a bug. **Not pushed** (would turn CI red).
 - Learned: Java has no chained comparisons (`80 <= x < 100` is Python); a test that fails after a requirement change needs updating, with a precise assertion (`assertEquals(2, size)`), not a vague `!isEmpty()`.
 
-**Next (21 Nov):** fix that test (exact count + new name); tests for 80% and zero balance; `stats` with income/expenses per category; `help` command; `Storage` interface + `FileStorage implements Storage`; integration test save → load; example session in README → submit finance. Then Weather (activate Yandex key that day), URL shortener, final tests prep — all by 30 Nov.
+---
+
+## 21 November 2026 — 🎉 Finance project SUBMITTED (OOP final project)
+
+Started at 2pm (GTA until 3am). Got frustrated mid-way ("ебал эту хуйню") → walk + shop → came back and finished.
+
+**Quick wins done:**
+- Red test fixed: `twoAlertsWhenSpentExactlyLimitAndBalanceZero` (`assertEquals(2, size)`); new tests `alertWhen80PercentOfBudgetSpent` (boundary 800/1000) and `alertWhenBalanceIsZero`
+- `Wallet.getIncomeTotalsByCategory()` / `getExpenseTotalsByCategory()` → one private helper `totalsByCategory(boolean income)` (one loop, `income == operation.isIncome()`, `getOrDefault` + `put`, `LinkedHashMap`); tests compare whole map with `Map.of(...)` and include an operation of the other type
+- `stats`: incomes and expenses per category (+ "пока нет" via `isEmpty()`)
+- `help` command, short greeting
+- `Storage` interface; `FileStorage implements Storage`; field `private final Storage storage = new FileStorage();` (SOLID D)
+- README: step-by-step usage example up to `stats`, alerts list, 24 tests
+- Skipped: integration test, unknown-category check (found the bug myself: "Развлечение" vs "Развлечения" → budget silently not applied), dates/CSV
+
+**Final:** 9 classes in 4 layers, 24 tests, CI/CD, README. Verified by a scripted run + restart. Expected ~45/50 by rubric.
+
+**Learned:**
+- Method vs variable with the same name: `totalsByCategory(income)` inside itself = recursion → `StackOverflowError`
+- Public methods with no flags (`getIncomeTotals()`), private helper takes the flag
+- `Map.of(k1, v1, k2, v2)`; `assertEquals` compares maps by content
+- `0` vs `0.0` for `Double`; no `{...}` map literal in Java (Python habit)
+- Interface: methods without body (`;`), `implements` written once in the class declaration
+- IC track (senior → staff → principal) vs management — I prefer IC
+
+**Next:** Weather service (activate Yandex key the same day), URL shortener, mock test + final tests for OOP and Java — all by 30 Nov (tests can't be submitted after the deadline).
 
 ---
 
